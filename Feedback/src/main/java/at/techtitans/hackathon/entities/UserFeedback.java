@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "UserFeedback", schema = "feedback_DB")
 public class UserFeedback {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idUserFeedback", nullable = false)
     private Integer id;
 

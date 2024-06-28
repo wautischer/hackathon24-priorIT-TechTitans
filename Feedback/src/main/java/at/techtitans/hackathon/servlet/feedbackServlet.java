@@ -1,15 +1,18 @@
 package at.techtitans.hackathon.servlet;
 
-import java.io.*;
-
 import at.techtitans.hackathon.entities.Employee;
 import at.techtitans.hackathon.persistence.FeedbackDAO;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
 
 @WebServlet(name = "feedback", value = "/feedback")
 public class feedbackServlet extends HttpServlet {
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Retrieve form parameters
@@ -22,18 +25,29 @@ public class feedbackServlet extends HttpServlet {
         String adaptability = request.getParameter("adability");
         String feedback = request.getParameter("feedback");
         String leadership = request.getParameter("leadership");
+        String fromID = request.getParameter("fromID").strip();
         boolean anonymous = request.getParameter("anonymous") != null;
 
-        int fromid  = -1;
 
-        if(!anonymous){
-            HttpSession session = request.getSession();
-            Employee loggedInEmployee = (Employee) session.getAttribute("loggedInUser");
-            fromid = loggedInEmployee.getId();
+        int fID = -1;
+        if (!anonymous) {
+            fID = Integer.parseInt(fromID);
         }
 
-        FeedbackDAO.setNewUserFeedback(Integer.parseInt(recipient),fromid,Integer.parseInt(performance),Integer.parseInt(knowledge),Integer.parseInt(communication),Integer.parseInt(reliability),Integer.parseInt(teamwork),Integer.parseInt(adaptability),Integer.parseInt(leadership),feedback,anonymous);
+        FeedbackDAO.setNewUserFeedback(
+                Integer.parseInt(recipient),
+                fID,
+                Integer.parseInt(performance),
+                Integer.parseInt(knowledge),
+                Integer.parseInt(communication),
+                Integer.parseInt(reliability),
+                Integer.parseInt(teamwork),
+                Integer.parseInt(adaptability),
+                Integer.parseInt(leadership),
+                feedback);
+
+        // Redirect to a success page or handle response as needed
+        //response.sendRedirect(request.getContextPath() + "/feedbackSuccess.jsp");
     }
-
-
 }
+

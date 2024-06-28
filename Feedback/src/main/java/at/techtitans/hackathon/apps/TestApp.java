@@ -8,6 +8,7 @@ import java.util.List;
 
 public class TestApp {
     public static void main(String[] args) {
+        /*
         List<Employee> employees = FeedbackDAO.getAllEmployee();
         for (Employee employee : employees) {
             System.out.println(employee);
@@ -21,5 +22,9 @@ public class TestApp {
         }
 
         //System.out.println(FeedbackDAO.getEmployeeIdByUsername("tom_john"));
+
+         */
+
+       // System.out.println(FeedbackDAO.setNewUserFeedback(85,86,5,5,5,5,5,5,5,"Supper Tolll",true));
     }
 }

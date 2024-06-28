@@ -164,12 +164,12 @@
     <form action="feedback" method="get">
         <label>
             <select class="select-field" name="recipient">
-                 <option value="">Wählen Sie einen Empfänger</option>
-                 <% for(Employee employee : FeedbackDAO.getAllEmployee()) { %>
-                     <option value="<%= employee.getId() %>">
-                         <%= employee.getFirstname() + " " + employee.getSurname() %>
-                     </option>
-                 <% } %>
+                <option value="">Wählen Sie einen Empfänger</option>
+                <% for (Employee employee : FeedbackDAO.getAllEmployee()) { %>
+                <option value="<%= employee.getId() %>">
+                    <%= employee.getFirstname() + " " + employee.getSurname() %>
+                </option>
+                <% } %>
             </select>
         </label>
         <div class="feedback-field">
@@ -271,6 +271,18 @@
         <div class="feedback-field">
             <input type="checkbox" id="anonymous" name="anonymous" checked>
             <label for="anonymous">Anonym absenden</label>
+        </div>
+        <div>
+            <label for="fromID">From (Employee ID):</label>
+            <input type="hidden" id="fromID" name="fromID" value="<%
+                session = request.getSession();
+                Employee loggedInEmployee = (Employee) session.getAttribute("loggedInUser");
+                if (loggedInEmployee != null) {
+                    out.println(loggedInEmployee.getId());
+                } else {
+                    out.println(-1); // Default value if no employee is logged in
+                }
+            %>">
         </div>
         <input type="submit" class="submit-btn" value="Absenden">
     </form>
