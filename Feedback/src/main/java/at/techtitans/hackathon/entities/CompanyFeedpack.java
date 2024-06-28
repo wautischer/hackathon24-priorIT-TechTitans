@@ -43,6 +43,9 @@ public class CompanyFeedpack {
     @JoinColumn(name = "Employee_idLogin", nullable = false)
     private Employee employeeIdlogin;
 
+    @Column(name = "id_from")
+    private Integer idFrom;
+
     public Integer getId() {
         return id;
     }
@@ -137,6 +140,14 @@ public class CompanyFeedpack {
 
     public void setEmployeeIdlogin(Employee employeeIdlogin) {
         this.employeeIdlogin = employeeIdlogin;
+    }
+
+    public Integer getIdFrom() {
+        return idFrom;
+    }
+
+    public void setIdFrom(Integer idFrom) {
+        this.idFrom = idFrom;
     }
 
 }

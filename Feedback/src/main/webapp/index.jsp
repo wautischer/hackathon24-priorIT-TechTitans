@@ -132,7 +132,7 @@
             datasets: [
                 {
                     label: 'Feedback',
-                    data: [0, 1, 2, 3, 4, 5],
+                    data: [0, 1, 2, 3, 4, 5, 4],
                     backgroundColor: 'rgba(255, 255, 255, 0.2)',
                     borderColor: 'rgba(255, 255, 255, 1)',
                     borderWidth: 1,
