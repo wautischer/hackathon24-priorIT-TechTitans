@@ -1,4 +1,5 @@
 <%@ page import="at.techtitans.hackathon.persistence.FeedbackDAO" %>
+<%@ page import="at.techtitans.hackathon.entities.Employee" %>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -81,7 +82,18 @@
         <div id="navbar"></div>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Hallo User</h1>
+                <h1 class="h2">
+                    <%
+                        session = request.getSession();
+                        Employee loggedInEmployee = (Employee) session.getAttribute("loggedInUser");
+                        if (loggedInEmployee != null) {
+                            out.println("Hallo, " + loggedInEmployee.getFirstname() + " " + loggedInEmployee.getSurname());
+                        } else {
+                            out.println("Hallo, User");
+                        }
+                    %>
+                </h1>
+
                 <div>
                     <img id="profileIcon" src="https://via.placeholder.com/40" alt="Profile Icon" style="cursor:pointer;">
                 </div>
@@ -99,12 +111,30 @@
 <div id="overlay" class="overlay">
     <div class="popup">
         <h4>Benutzerdetails</h4>
-        <p><strong>Benutzername:</strong> Maill</p>
-        <p><strong>E-Mail:</strong> mail@beispiel.de</p>
-        <p><strong>Adresse:</strong> test 123, 12345 test</p>
+        <%
+            if (loggedInEmployee == null) {
+        %>
+        <p><strong>Bitte anmelden</strong></p>
+        <%
+        } else {
+        %>
+        <p><strong>Benutzername:</strong> <%= loggedInEmployee.getFirstname() + "_" + loggedInEmployee.getSurname() %></p>
+        <p><strong>Telefonnummer:</strong> <%= loggedInEmployee.getPhoneNumber() %></p>
+        <p><strong>Adresse:</strong> <%= loggedInEmployee.getStreetAdress() %></p>
+        <%
+            }
+        %>
+
         <div style="display: flex; justify-content: space-around;">
             <button id="closePopupButton" class="btn btn-secondary btn-logout">close</button>
-            <button id="logout" class="btn btn-secondary btn-logout">logout</button>
+            <button onclick="function handleClick() {
+                <%
+                session = request.getSession();
+                session.setAttribute("loggedInUser", null);
+                %>
+                    sessionStorage.clear();
+            }
+            handleClick()" id="logout" class="btn btn-secondary btn-logout"><% if (loggedInEmployee == null) {out.println("login");}else {out.println("logout");}%></button>
         </div>
     </div>
 </div>

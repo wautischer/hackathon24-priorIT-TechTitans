@@ -29,7 +29,13 @@ public class FeedbackDAO {
         }
     }
 
-    public static Integer getEmployeeIdByUsername(String username) {
+    public static Integer getEmployeeIdByLoginID(Integer loginID) {
+        EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+        TypedQuery<Employee> query = em.createQuery("select u from Employee u where u.loginIdlogin.id = ?1", Employee.class);
+        return query.setParameter(1, loginID).getSingleResult().getId();
+    }
+
+    public static Integer getLoginIDByUsername(String username) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
         TypedQuery<Login> query = em.createQuery("select u from Login u where u.username = ?1", Login.class);
         try {
@@ -71,7 +77,7 @@ public class FeedbackDAO {
     try {
         em.getTransaction().begin();
         UserFeedback userFeedback = new UserFeedback();
-        userFeedback.setEmployeeIdlogin(FeedbackDAO.getEmployeeByID(FeedbackDAO.getEmployeeIdByUsername(recipient)));
+        //userFeedback.setEmployeeIdlogin(FeedbackDAO.getEmployeeByID(FeedbackDAO.getEmployeeIdByUsername(recipient)));
         userFeedback.setIdFrom(from);
         userFeedback.setWorkPerformance(performance);
         userFeedback.setKnowledge(knowledge);
