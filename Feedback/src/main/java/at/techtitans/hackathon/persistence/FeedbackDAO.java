@@ -59,7 +59,7 @@ public class FeedbackDAO {
     try {
         em.getTransaction().begin();
         UserFeedback userFeedback = new UserFeedback();
-        userFeedback.setRecipient(recipient);
+        userFeedback.setEmployeeIdlogin(FeedbackDAO.getEmployeeByID(FeedbackDAO.getEmployeeIdByUsername(recipient)));
         userFeedback.setIdFrom(from);
         userFeedback.setWorkPerformance(performance);
         userFeedback.setKnowledge(knowledge);
@@ -69,7 +69,6 @@ public class FeedbackDAO {
         userFeedback.setAdability(adability);
         userFeedback.setLeadership(leadership);
         userFeedback.setInputField(feedback);
-        userFeedback.setAnonym(anonym);
 
         em.persist(userFeedback);
         em.getTransaction().commit();
