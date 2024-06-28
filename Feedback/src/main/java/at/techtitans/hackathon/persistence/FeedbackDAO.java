@@ -43,7 +43,7 @@ public class FeedbackDAO {
 
     public static List<UserFeedback> getRatingsByEmployeeID(Integer id) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-        TypedQuery<UserFeedback> query = em.createQuery("select f from UserFeedback f where f.employeeIdlogin = ?1", UserFeedback.class);
+        TypedQuery<UserFeedback> query = em.createQuery("select f from UserFeedback f where f.employeeIdlogin.id = ?1", UserFeedback.class);
         return query.setParameter(1, id).getResultList();
     }
 

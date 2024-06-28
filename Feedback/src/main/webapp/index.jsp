@@ -1,3 +1,4 @@
+<%@ page import="at.techtitans.hackathon.persistence.FeedbackDAO" %>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -135,14 +136,24 @@
     updateLoginButton();
 
     let ctx = document.getElementById('radarChart').getContext('2d');
+
+    const feedbackData = [<%FeedbackDAO.getFeedbackData(FeedbackDAO.getRatingsByEmployeeID(85).get(0)).getFirst();%>
+        ,<%FeedbackDAO.getFeedbackData(FeedbackDAO.getRatingsByEmployeeID(85).get(0)).get(1);%>
+        ,<%FeedbackDAO.getFeedbackData(FeedbackDAO.getRatingsByEmployeeID(85).get(0)).get(2);%>
+        ,<%FeedbackDAO.getFeedbackData(FeedbackDAO.getRatingsByEmployeeID(85).get(0)).get(3);%>
+        ,<%FeedbackDAO.getFeedbackData(FeedbackDAO.getRatingsByEmployeeID(85).get(0)).get(4);%>
+        ,<%FeedbackDAO.getFeedbackData(FeedbackDAO.getRatingsByEmployeeID(85).get(0)).get(5);%>]
+
+    console.log(feedbackData)
+
     let radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ['Punkt 1', 'Punkt 2', 'Punkt 3', 'Punkt 4', 'Punkt 5', 'Punkt 6','Punkt 7'],
+            labels: ['Punkt 1', 'Punkt 2', 'Punkt 3', 'Punkt 4', 'Punkt 5', 'Punkt 6'],
             datasets: [
                 {
                     label: 'Feedback',
-                    data: [0, 1, 2, 3, 4, 5, 4],
+                    data: feedbackData,
                     backgroundColor: 'rgba(255, 255, 255, 0.2)',
                     borderColor: 'rgba(255, 255, 255, 1)',
                     borderWidth: 1,
@@ -179,6 +190,7 @@
             }
         }
     });
+
 
 
     // Öffnen des Popups beim Klick auf das Profil-Icon
