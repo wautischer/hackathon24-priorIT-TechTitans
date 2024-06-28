@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback</title>
+    <title>Home</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Chart.js -->
@@ -62,13 +62,13 @@
         }
 
         /* Stil für Login/Logout-Buttons */
-        .btn-login {
+        .btn-logout {
             color: white;
             width: 150px; /* Breite der Buttons */
             margin: 0 10px; /* Abstand zwischen den Buttons */
         }
 
-        .btn-login a {
+        .btn-logout a {
             color: white;
             text-decoration: none;
         }
@@ -102,8 +102,8 @@
         <p><strong>E-Mail:</strong> mail@beispiel.de</p>
         <p><strong>Adresse:</strong> test 123, 12345 test</p>
         <div style="display: flex; justify-content: space-around;">
-            <button id="closePopupButton" class="btn btn-secondary btn-login">close</button>
-            <button id="login" class="btn btn-secondary btn-login">login</button>
+            <button id="closePopupButton" class="btn btn-secondary btn-logout">close</button>
+            <button id="logout" class="btn btn-secondary btn-logout">logout</button>
         </div>
     </div>
 </div>
@@ -118,31 +118,21 @@
         $("#navbar").load("navbar.jsp");
     });
 
-
-    let isLoggedIn = false; // Beispiel für den Einlogstatus
-
-    // Funktion zur Aktualisierung des Login-Buttons
-    function updateLoginButton() {
-        let loginButton = document.getElementById('login');
-        if (isLoggedIn) {
-            loginButton.innerHTML = 'logout';
-        } else {
-            loginButton.innerHTML = 'login';
-        }
-    }
-
-    // Initialisierung der Funktion beim Laden der Seite
-    updateLoginButton();
+    // Klick-Ereignis für den Logout-Button
+    document.getElementById('logout').addEventListener('click', function(event) {
+        event.preventDefault(); // Verhindert das Navigieren zur href-URL
+        window.location.href = "login.jsp"; // Weiterleitung zur Login-Seite
+    });
 
     let ctx = document.getElementById('radarChart').getContext('2d');
     let radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ['Punkt 1', 'Punkt 2', 'Punkt 3', 'Punkt 4', 'Punkt 5', 'Punkt 6'],
+            labels: ['Punkt 1', 'Punkt 2', 'Punkt 3', 'Punkt 4', 'Punkt 5', 'Punkt 6','Punkt 7'],
             datasets: [
                 {
                     label: 'Feedback',
-                    data: [0, 1, 2, 3, 4, 5],
+                    data: [0, 1, 2, 3, 4, 5, 4],
                     backgroundColor: 'rgba(255, 255, 255, 0.2)',
                     borderColor: 'rgba(255, 255, 255, 1)',
                     borderWidth: 1,
@@ -197,12 +187,6 @@
         setTimeout(function() {
             overlay.style.display = 'none';
         }, 300); // Warte bis die Animation abgeschlossen ist
-    });
-
-    document.getElementById('login').addEventListener('click', function(event) {
-        event.preventDefault(); // Verhindert das Navigieren zur href-URL
-        isLoggedIn = !isLoggedIn; // Wechselt den Einlogstatus
-        updateLoginButton(); // Aktualisiert den Login-Button entsprechend
     });
 </script>
 </body>

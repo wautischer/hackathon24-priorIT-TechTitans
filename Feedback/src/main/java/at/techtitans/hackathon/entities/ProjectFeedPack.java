@@ -25,6 +25,9 @@ public class ProjectFeedPack {
     @JoinColumn(name = "Projects_idProjects", nullable = false)
     private Project projectsIdprojects;
 
+    @Column(name = "id_from")
+    private Integer idFrom;
+
     public Integer getId() {
         return id;
     }
@@ -71,6 +74,14 @@ public class ProjectFeedPack {
 
     public void setProjectsIdprojects(Project projectsIdprojects) {
         this.projectsIdprojects = projectsIdprojects;
+    }
+
+    public Integer getIdFrom() {
+        return idFrom;
+    }
+
+    public void setIdFrom(Integer idFrom) {
+        this.idFrom = idFrom;
     }
 
 }

@@ -1,6 +1,9 @@
 package at.techtitans.hackathon.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Projects", schema = "feedback_DB")
@@ -14,10 +17,6 @@ public class Project {
 
     @Column(name = "Description", nullable = false, length = 10000)
     private String description;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "Employee_idLogin", nullable = false)
-    private Employee employeeIdlogin;
 
     public Integer getId() {
         return id;
@@ -41,14 +40,6 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Employee getEmployeeIdlogin() {
-        return employeeIdlogin;
-    }
-
-    public void setEmployeeIdlogin(Employee employeeIdlogin) {
-        this.employeeIdlogin = employeeIdlogin;
     }
 
 }

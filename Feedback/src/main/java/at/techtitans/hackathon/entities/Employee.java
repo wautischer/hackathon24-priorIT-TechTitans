@@ -1,15 +1,12 @@
 package at.techtitans.hackathon.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Employee", schema = "feedback_DB")
 public class Employee {
     @Id
-    @Column(name = "idLogin", nullable = false)
+    @Column(name = "idEmployee", nullable = false)
     private Integer id;
 
     @Column(name = "Role", nullable = false, length = 45)
@@ -44,6 +41,14 @@ public class Employee {
 
     @Column(name = "Picture", nullable = false, length = 100)
     private String picture;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "Projects_idProjects", nullable = false)
+    private Project projectsIdprojects;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "Login_idLogin", nullable = false)
+    private Login loginIdlogin;
 
     public Integer getId() {
         return id;
@@ -139,6 +144,22 @@ public class Employee {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public Project getProjectsIdprojects() {
+        return projectsIdprojects;
+    }
+
+    public void setProjectsIdprojects(Project projectsIdprojects) {
+        this.projectsIdprojects = projectsIdprojects;
+    }
+
+    public Login getLoginIdlogin() {
+        return loginIdlogin;
+    }
+
+    public void setLoginIdlogin(Login loginIdlogin) {
+        this.loginIdlogin = loginIdlogin;
     }
 
 }
