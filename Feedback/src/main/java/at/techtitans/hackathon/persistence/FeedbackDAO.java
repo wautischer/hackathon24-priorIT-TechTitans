@@ -1,8 +1,6 @@
 package at.techtitans.hackathon.persistence;
 
-import at.techtitans.hackathon.entities.Employee;
-import at.techtitans.hackathon.entities.Login;
-import at.techtitans.hackathon.entities.UserFeedback;
+import at.techtitans.hackathon.entities.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
@@ -54,9 +52,29 @@ public class FeedbackDAO {
         }
         return counter;
     }
+
+    public static int countFeedbacksProject(List<ProjectFeedPack> ratings) {
+        int counter = 0;
+        for (ProjectFeedPack rating : ratings) {
+            counter++;
+        }
+        return counter;
+    }
     public static Employee getEmployeeByID(Integer id) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
         TypedQuery<Employee> query = em.createQuery("select u from Employee u where u.id = ?1", Employee.class);
+        try {
+            return query.setParameter(1, id).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public static Project getProjectByID(Integer id) {
+        EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+        TypedQuery<Project> query = em.createQuery("select u from Project u where u.id = ?1", Project.class);
         try {
             return query.setParameter(1, id).getSingleResult();
         } catch (NoResultException e) {
@@ -130,6 +148,12 @@ public class FeedbackDAO {
     public static List<UserFeedback> getRatingsByEmployeeID(Integer id) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
         TypedQuery<UserFeedback> query = em.createQuery("select f from UserFeedback f where f.employeeIdlogin.id = ?1", UserFeedback.class);
+        return query.setParameter(1, id).getResultList();
+    }
+
+    public static List<ProjectFeedPack> getRatingsByProjectID(Integer id) {
+        EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+        TypedQuery<ProjectFeedPack> query = em.createQuery("select f from ProjectFeedPack f where f.id = ?1", ProjectFeedPack.class);
         return query.setParameter(1, id).getResultList();
     }
 
