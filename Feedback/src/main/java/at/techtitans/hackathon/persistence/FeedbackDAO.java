@@ -4,6 +4,7 @@ import at.techtitans.hackathon.entities.Employee;
 import at.techtitans.hackathon.entities.Login;
 import at.techtitans.hackathon.entities.UserFeedback;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 
@@ -72,36 +73,41 @@ public class FeedbackDAO {
         boolean anonymous = request.getParameter("anonymous") != null;
      */
 
-    public static boolean setNewUserFeedback(Integer recipient, Integer from, Integer performance, Integer knowledge, Integer communication, Integer reliability, Integer teamwork, Integer adability, Integer leadership, String feedback, Boolean anonym) {
-    EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-    try {
-        em.getTransaction().begin();
-        UserFeedback userFeedback = new UserFeedback();
-        userFeedback.setEmployeeIdlogin(FeedbackDAO.getEmployeeByID(recipient));
-        userFeedback.setIdFrom(from);
-        userFeedback.setWorkPerformance(performance);
-        userFeedback.setKnowledge(knowledge);
-        userFeedback.setCommunication(communication);
-        userFeedback.setReliability(reliability);
-        userFeedback.setTeamwork(teamwork);
-        userFeedback.setAdability(adability);
-        userFeedback.setLeadership(leadership);
-        userFeedback.setInputField(feedback);
+    public static boolean setNewUserFeedback(Integer recipient, Integer from, Integer performance, Integer knowledge, Integer communication, Integer reliability, Integer teamwork, Integer adability, Integer leadership, String feedback) {
+        EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            UserFeedback userFeedback = new UserFeedback();
 
-        em.persist(userFeedback);
-        em.getTransaction().commit();
-        return true;
-    } catch (Exception e) {
-        if (em.getTransaction().isActive()) {
-            em.getTransaction().rollback();
+            userFeedback.setEmployeeIdlogin(FeedbackDAO.getEmployeeByID(recipient));
+            userFeedback.setIdFrom(from);
+            userFeedback.setWorkPerformance(performance);
+            userFeedback.setKnowledge(knowledge);
+            userFeedback.setCommunication(communication);
+            userFeedback.setReliability(reliability);
+            userFeedback.setTeamwork(teamwork);
+            userFeedback.setAdability(adability);
+            userFeedback.setLeadership(leadership);
+            userFeedback.setInputField(feedback);
+
+            em.persist(userFeedback);
+            em.flush();
+            et.commit();
+            return true;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            em.close();
         }
-        e.printStackTrace();
-        return false;
-    } finally {
-        em.close();
     }
-}
-
 
     public static List<UserFeedback> getRatingsByEmployeeID(Integer id) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();

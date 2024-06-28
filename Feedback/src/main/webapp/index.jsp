@@ -129,10 +129,12 @@
             <button id="closePopupButton" class="btn btn-secondary btn-logout">close</button>
             <button onclick="function handleClick() {
                 <%
+                /*
                 session = request.getSession();
                 session.setAttribute("loggedInUser", null);
+
+                 */
                 %>
-                    sessionStorage.clear();
             }
             handleClick()" id="logout" class="btn btn-secondary btn-logout"><% if (loggedInEmployee == null) {out.println("login");}else {out.println("logout");}%></button>
         </div>
