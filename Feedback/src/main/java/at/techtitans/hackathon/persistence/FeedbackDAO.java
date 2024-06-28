@@ -2,6 +2,7 @@ package at.techtitans.hackathon.persistence;
 
 import at.techtitans.hackathon.entities.Employee;
 import at.techtitans.hackathon.entities.Login;
+import at.techtitans.hackathon.entities.UserFeedback;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
@@ -38,4 +39,49 @@ public class FeedbackDAO {
         TypedQuery<Employee> query = em.createQuery("select u from Employee u where u.id = ?1", Employee.class);
         return query.setParameter(1, id).getSingleResult();
     }
+
+    /*
+    String recipient = request.getParameter("recipient");
+        String performance = request.getParameter("performance");
+        String knowledge = request.getParameter("knowledge");
+        String communication = request.getParameter("communication");
+        String reliability = request.getParameter("reliability");
+        String teamwork = request.getParameter("teamwork");
+        String adaptability = request.getParameter("adability");
+        String feedback = request.getParameter("feedback");
+        String leadership = request.getParameter("leadership");
+        boolean anonymous = request.getParameter("anonymous") != null;
+     */
+
+    public static boolean setNewUserFeedback(String recipient, Integer from, Integer performance, Integer knowledge, Integer communication, Integer reliability, Integer teamwork, Integer adability, Integer leadership, String feedback, Boolean anonym) {
+    EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+    try {
+        em.getTransaction().begin();
+        UserFeedback userFeedback = new UserFeedback();
+        userFeedback.setRecipient(recipient);
+        userFeedback.setIdFrom(from);
+        userFeedback.setWorkPerformance(performance);
+        userFeedback.setKnowledge(knowledge);
+        userFeedback.setCommunication(communication);
+        userFeedback.setReliability(reliability);
+        userFeedback.setTeamwork(teamwork);
+        userFeedback.setAdability(adability);
+        userFeedback.setLeadership(leadership);
+        userFeedback.setInputField(feedback);
+        userFeedback.setAnonym(anonym);
+
+        em.persist(userFeedback);
+        em.getTransaction().commit();
+        return true;
+    } catch (Exception e) {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
+        e.printStackTrace();
+        return false;
+    } finally {
+        em.close();
+    }
+}
+
 }
