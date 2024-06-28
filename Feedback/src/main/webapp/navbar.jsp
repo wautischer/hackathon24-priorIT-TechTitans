@@ -1,10 +1,13 @@
 <style>
     .red-icon {
-        color: red;
+        color: #a6233b;
         margin: 20px;
     }
+    .sidebar-dark {
+        color: #3c3c3b;
+    }
 </style>
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+<nav class="col-md-2 d-none d-md-block sidebar-dark">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">

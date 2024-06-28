@@ -32,7 +32,7 @@
 
         /* Stile für das Popup-Fenster */
         .popup {
-            background-color: white;
+            background-color: #3c3c3b;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -106,8 +106,8 @@
                 {
                     label: 'Feedback',
                     data: [0, 1, 2, 3, 4, 5],
-                    backgroundColor: 'rgba(255, 255, 255, 0.2)', // Helle Hintergrundfarbe mit Transparenz
-                    borderColor: 'rgba(255, 255, 255, 1)', // Helle Randfarbe
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    borderColor: 'rgba(255, 255, 255, 1)',
                     borderWidth: 1
                 }
             ]
@@ -115,10 +115,10 @@
         options: {
             scale: {
                 angleLines: {
-                    color: 'rgba(255, 255, 255, 0.5)' // Farbe der Strahlenlinien des Radardiagramms
+                    color: 'rgba(255, 255, 255, 0.5)'
                 },
                 gridLines: {
-                    color: 'rgba(255, 255, 255, 0.2)', // Farbe der Gitterlinien
+                    color: 'rgba(255, 255, 255, 0.2)',
                     circular: true
                 },
                 ticks: {
@@ -126,7 +126,7 @@
                     min: 0,
                     max: 5,
                     stepSize: 1,
-                    backdropColor: 'rgba(0, 0, 0, 0)' // Farbe des Hintergrunds hinter den Tick-Markierungen
+                    backdropColor: 'rgba(0, 0, 0, 0)'
                 }
             }
         }
