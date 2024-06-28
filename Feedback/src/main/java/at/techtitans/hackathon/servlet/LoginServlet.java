@@ -1,17 +1,13 @@
 package at.techtitans.hackathon.servlet;
 
 import at.techtitans.hackathon.entities.Employee;
-import at.techtitans.hackathon.entities.Login;
 import at.techtitans.hackathon.persistence.FeedbackDAO;
-import com.mysql.cj.log.Log;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet(name = "login", value = "/login")
 public class LoginServlet extends HttpServlet {

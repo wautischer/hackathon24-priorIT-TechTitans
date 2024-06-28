@@ -22,18 +22,21 @@
             height: 100vh;
             color: white;
         }
+
         .login-container {
             background: #444;
             padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 300px;
             text-align: center;
         }
+
         .login-container h2 {
             margin-bottom: 20px;
             color: white;
         }
+
         .input-field {
             width: 100%;
             padding: 10px;
@@ -44,6 +47,7 @@
             background: #555;
             color: white;
         }
+
         .login-btn {
             width: 100%;
             padding: 10px;
@@ -54,15 +58,18 @@
             cursor: pointer;
             font-size: 16px;
         }
+
         .login-btn:hover {
             background-color: #a30026;
         }
+
         .forgot-password {
             margin-top: 15px;
             color: #cc0033;
             text-decoration: none;
             display: block;
         }
+
         .forgot-password:hover {
             text-decoration: underline;
         }
@@ -73,10 +80,12 @@
     <h2>Login</h2>
     <form action="login" method="get">
         <label>
-            <input type="text" id="username" name="uname" class="input-field" placeholder="Benutzername" value="">
+            <input type="text" id="username" name="uname" class="input-field" placeholder="Benutzername" value=""
+                   required>
         </label>
         <label>
-            <input type="password" id="password" name="pword" class="input-field" placeholder="Password" value="">
+            <input type="password" id="password" name="pword" class="input-field" placeholder="Password" value=""
+                   required>
         </label>
         <button type="submit" class="login-btn">Einloggen</button>
     </form>
