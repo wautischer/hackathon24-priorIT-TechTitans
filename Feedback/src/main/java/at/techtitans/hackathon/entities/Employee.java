@@ -42,6 +42,9 @@ public class Employee {
     @Column(name = "Firstname", nullable = false, length = 45)
     private String firstname;
 
+    @Column(name = "Picture", nullable = false, length = 100)
+    private String picture;
+
     public Integer getId() {
         return id;
     }
@@ -130,20 +133,12 @@ public class Employee {
         this.firstname = firstname;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", role='" + role + '\'' +
-                ", streetAdress='" + streetAdress + '\'' +
-                ", apartment='" + apartment + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", postalCode=" + postalCode +
-                ", country='" + country + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", surname='" + surname + '\'' +
-                ", firstname='" + firstname + '\'' +
-                '}';
+    public String getPicture() {
+        return picture;
     }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
 }
