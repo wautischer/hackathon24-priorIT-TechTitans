@@ -1,4 +1,7 @@
 <%@ page import="at.techtitans.hackathon.persistence.FeedbackDAO" %>
+<%@ page import="at.techtitans.hackathon.entities.UserFeedback" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="at.techtitans.hackathon.entities.Employee" %>
 <!DOCTYPE html>
 <html lang="de">
@@ -17,6 +20,7 @@
             background-color: #3c3c3b;
             color: white;
         }
+
         /* Stile für das Overlay */
         .overlay {
             display: none;
@@ -95,7 +99,8 @@
                 </h1>
 
                 <div>
-                    <img id="profileIcon" src="https://via.placeholder.com/40" alt="Profile Icon" style="cursor:pointer;">
+                    <img id="profileIcon" src="https://via.placeholder.com/40" alt="Profile Icon"
+                         style="cursor:pointer;">
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -118,9 +123,12 @@
         <%
         } else {
         %>
-        <p><strong>Benutzername:</strong> <%= loggedInEmployee.getFirstname() + "_" + loggedInEmployee.getSurname() %></p>
-        <p><strong>Telefonnummer:</strong> <%= loggedInEmployee.getPhoneNumber() %></p>
-        <p><strong>Adresse:</strong> <%= loggedInEmployee.getStreetAdress() %></p>
+        <p><strong>Benutzername:</strong> <%= loggedInEmployee.getFirstname() + "_" + loggedInEmployee.getSurname() %>
+        </p>
+        <p><strong>Telefonnummer:</strong> <%= loggedInEmployee.getPhoneNumber() %>
+        </p>
+        <p><strong>Adresse:</strong> <%= loggedInEmployee.getStreetAdress() %>
+        </p>
         <%
             }
         %>
@@ -137,6 +145,13 @@
                 %>
             }
             handleClick()" id="logout" class="btn btn-secondary btn-logout"><% if (loggedInEmployee == null) {out.println("login");}else {out.println("logout");}%></button>
+                    sessionStorage.clear();
+                    }
+                    handleClick()" id="logout" class="btn btn-secondary btn-logout"><% if (loggedInEmployee == null) {
+                out.println("login");
+            } else {
+                out.println("logout");
+            }%></button>
         </div>
     </div>
 </div>
@@ -147,35 +162,53 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $("#navbar").load("navbar.jsp");
     });
 
     // Klick-Ereignis für den Logout-Button
-    document.getElementById('logout').addEventListener('click', function(event) {
+    document.getElementById('logout').addEventListener('click', function (event) {
         event.preventDefault(); // Verhindert das Navigieren zur href-URL
         window.location.href = "login.jsp"; // Weiterleitung zur Login-Seite
     });
 
     let ctx = document.getElementById('radarChart').getContext('2d');
 
-    const feedbackData = [<%FeedbackDAO.getFeedbackData(FeedbackDAO.getRatingsByEmployeeID(85).get(0)).getFirst();%>
-        ,<%FeedbackDAO.getFeedbackData(FeedbackDAO.getRatingsByEmployeeID(85).get(0)).get(1);%>
-        ,<%FeedbackDAO.getFeedbackData(FeedbackDAO.getRatingsByEmployeeID(85).get(0)).get(2);%>
-        ,<%FeedbackDAO.getFeedbackData(FeedbackDAO.getRatingsByEmployeeID(85).get(0)).get(3);%>
-        ,<%FeedbackDAO.getFeedbackData(FeedbackDAO.getRatingsByEmployeeID(85).get(0)).get(4);%>
-        ,<%FeedbackDAO.getFeedbackData(FeedbackDAO.getRatingsByEmployeeID(85).get(0)).get(5);%>]
+    <%
 
-    console.log(feedbackData)
+
+     // Laden Sie die Bewertungen eines Mitarbeiters
+     List<UserFeedback> ratings = FeedbackDAO.getRatingsByEmployeeID(loggedInEmployee != null ? loggedInEmployee.getId() : null);
+
+
+ Double workperformance = 0.0;
+    Double knowledge = 0.0;
+    Double communication = 0.0;
+    Double reliability = 0.0;
+    Double teamwork = 0.0;
+    Double adability = 0.0;
+
+    double counter = FeedbackDAO.countFeedbacks(ratings);
+
+    // Berechnen der Durchschnittswerte
+    for (UserFeedback rating : ratings) {
+        workperformance += (double) rating.getWorkPerformance() / counter;
+        knowledge += (double) rating.getKnowledge() / counter;
+        communication += (double) rating.getCommunication() / counter;
+        reliability += (double) rating.getReliability() / counter;
+        teamwork += (double) rating.getTeamwork() / counter;
+        adability += (double) rating.getAdability() / counter;
+    }
+ %>
 
     let radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ['Punkt 1', 'Punkt 2', 'Punkt 3', 'Punkt 4', 'Punkt 5', 'Punkt 6'],
+            labels: ['WorkPerformance', 'Knowledge', 'Communication', 'Reliability', 'Teamwork', 'Adability'],
             datasets: [
                 {
                     label: 'Feedback',
-                    data: feedbackData,
+                    data: [<%= workperformance %>, <%= knowledge %>, <%= communication %>, <%= reliability %>, <%= teamwork %>, <%= adability %>],
                     backgroundColor: 'rgba(255, 255, 255, 0.2)',
                     borderColor: 'rgba(255, 255, 255, 1)',
                     borderWidth: 1,
@@ -195,8 +228,8 @@
                 },
                 ticks: {
                     beginAtZero: true,
-                    min: 0,
-                    max: 5,
+                    suggestedMin: 0,
+                    suggestedMax: 5,
                     stepSize: 1,
                     backdropColor: 'rgba(0, 0, 0, 0)',
                     color: 'rgba(255, 255, 255, 1)' // Farbe der Nummerierungen
@@ -214,9 +247,8 @@
     });
 
 
-
     // Öffnen des Popups beim Klick auf das Profil-Icon
-    document.getElementById('profileIcon').addEventListener('click', function() {
+    document.getElementById('profileIcon').addEventListener('click', function () {
         let overlay = document.getElementById('overlay');
         overlay.classList.remove('hide');
         overlay.classList.add('show');
@@ -224,11 +256,11 @@
     });
 
     // Schließen des Popups beim Klick auf den Schließen-Button
-    document.getElementById('closePopupButton').addEventListener('click', function() {
+    document.getElementById('closePopupButton').addEventListener('click', function () {
         var overlay = document.getElementById('overlay');
         overlay.classList.remove('show');
         overlay.classList.add('hide');
-        setTimeout(function() {
+        setTimeout(function () {
             overlay.style.display = 'none';
         }, 300); // Warte bis die Animation abgeschlossen ist
     });
