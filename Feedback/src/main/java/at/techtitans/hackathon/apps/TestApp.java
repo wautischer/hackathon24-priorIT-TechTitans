@@ -12,6 +12,6 @@ public class TestApp {
             System.out.println(employee);
         }
 
-        System.out.println(FeedbackDAO.checkPassword("password123","laurin12"));
+        System.out.println(FeedbackDAO.checkPassword("password1","tom_john"));
     }
 }

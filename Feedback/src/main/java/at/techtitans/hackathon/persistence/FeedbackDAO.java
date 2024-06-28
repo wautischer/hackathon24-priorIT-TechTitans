@@ -2,6 +2,7 @@ package at.techtitans.hackathon.persistence;
 
 import at.techtitans.hackathon.entities.Employee;
 import at.techtitans.hackathon.entities.Login;
+import at.techtitans.hackathon.entities.UserFeedback;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
@@ -36,6 +37,12 @@ public class FeedbackDAO {
     public static Employee getEmployeeByID (Integer id) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
         TypedQuery<Employee> query = em.createQuery("select u from Employee u where u.id = ?1", Employee.class);
+        return query.setParameter(1, id).getSingleResult();
+    }
+
+    public static UserFeedback getRatingsByEmployeeID(Integer id) {
+        EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+        TypedQuery<UserFeedback> query = em.createQuery("select f from UserFeedback f where f.employeeIdlogin = ?1", UserFeedback.class);
         return query.setParameter(1, id).getSingleResult();
     }
 }

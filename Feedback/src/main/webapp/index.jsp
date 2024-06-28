@@ -101,7 +101,7 @@
     let radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ['Punkt 1', 'Punkt 2', 'Punkt 3', 'Punkt 4', 'Punkt 5', 'Punkt 6'],
+            labels: ['Punkt 1', 'Punkt 2', 'Punkt 3', 'Punkt 4', 'Punkt 5', 'Punkt 6','Punkt 7'],
             datasets: [
                 {
                     label: 'Feedback',
