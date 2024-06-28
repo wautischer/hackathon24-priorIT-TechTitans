@@ -138,23 +138,19 @@
 
         <div style="display: flex; justify-content: space-around;">
             <button id="closePopupButton" class="btn btn-secondary btn-logout">close</button>
-            <button onclick="function handleClick() {
-                <%
-                /*
-                session = request.getSession();
-                session.setAttribute("loggedInUser", null);
-
-                 */
-                %>
-            }
-            handleClick()" id="logout" class="btn btn-secondary btn-logout"><% if (loggedInEmployee == null) {out.println("login");}else {out.println("logout");}%></button>
-                    sessionStorage.clear();
+            <button onclick="handleClick()" id="logout" class="btn btn-secondary btn-logout">
+                <% if (loggedInEmployee == null) {out.println("login");}else {out.println("logout");}%>
+            </button>
+            <script>
+                function handleClick() {
+                    let state = document.getElementById("logout").value
+                    if (state === "login") {
+                        window.location.href = "login.jsp";
+                    } else {
+                        window.location.href = "login.jsp";
                     }
-                    handleClick()" id="logout" class="btn btn-secondary btn-logout"><% if (loggedInEmployee == null) {
-                out.println("login");
-            } else {
-                out.println("logout");
-            }%></button>
+                }
+            </script>
         </div>
     </div>
 </div>
@@ -167,12 +163,6 @@
 <script>
     $(document).ready(function () {
         $("#navbar").load("navbar.jsp");
-    });
-
-    // Klick-Ereignis für den Logout-Button
-    document.getElementById('logout').addEventListener('click', function (event) {
-        event.preventDefault(); // Verhindert das Navigieren zur href-URL
-        window.location.href = "login.jsp"; // Weiterleitung zur Login-Seite
     });
 
     let ctx = document.getElementById('radarChart').getContext('2d');
@@ -266,7 +256,7 @@
         var overlay = document.getElementById('overlay');
         overlay.classList.remove('show');
         overlay.classList.add('hide');
-        setTimeout(function () {
+        setTimeout(function() {
             overlay.style.display = 'none';
         }, 300); // Warte bis die Animation abgeschlossen ist
     });
