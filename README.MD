@@ -6,5 +6,5 @@ Wie könnte eine digitale Lösung dazu aussehen? Wie könnte man die Feedback-Ku
 </p>
 
 ### In Zusammenarbeit mit:
-<a href="https://github.com/sschaar">Stefan Schaar</a>
-<a href="https://github.com/Breburda-Dejan">Dejan Breburda</a>
+<a href="https://github.com/sschaar">Stefan Schaar</a>,
+<a href="https://github.com/Breburda-Dejan">Dejan Breburda</a> und Kimi Sattlegger
