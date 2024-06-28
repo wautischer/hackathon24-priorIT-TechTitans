@@ -40,7 +40,13 @@ public class FeedbackDAO {
             em.close();
         }
     }
-
+    public static int countFeedbacks(List<UserFeedback> ratings) {
+        int counter = 0;
+        for (UserFeedback rating : ratings) {
+            counter++;
+        }
+        return counter;
+    }
     public static Employee getEmployeeByID(Integer id) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
         TypedQuery<Employee> query = em.createQuery("select u from Employee u where u.id = ?1", Employee.class);
