@@ -31,7 +31,7 @@ public class feedbackServlet extends HttpServlet {
             Employee loggedInEmployee = (Employee) session.getAttribute("loggedInUser");
             fromid = loggedInEmployee.getId();
         }
-        
-        FeedbackDAO.setNewUserFeedback(recipient,fromid,Integer.parseInt(performance),Integer.parseInt(knowledge),Integer.parseInt(communication),Integer.parseInt(reliability),Integer.parseInt(teamwork),Integer.parseInt(adaptability),Integer.parseInt(leadership),feedback,anonymous);
+
+        FeedbackDAO.setNewUserFeedback(Integer.parseInt(recipient),fromid,Integer.parseInt(performance),Integer.parseInt(knowledge),Integer.parseInt(communication),Integer.parseInt(reliability),Integer.parseInt(teamwork),Integer.parseInt(adaptability),Integer.parseInt(leadership),feedback,anonymous);
     }
 }

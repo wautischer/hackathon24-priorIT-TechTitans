@@ -72,12 +72,12 @@ public class FeedbackDAO {
         boolean anonymous = request.getParameter("anonymous") != null;
      */
 
-    public static boolean setNewUserFeedback(String recipient, Integer from, Integer performance, Integer knowledge, Integer communication, Integer reliability, Integer teamwork, Integer adability, Integer leadership, String feedback, Boolean anonym) {
+    public static boolean setNewUserFeedback(Integer recipient, Integer from, Integer performance, Integer knowledge, Integer communication, Integer reliability, Integer teamwork, Integer adability, Integer leadership, String feedback, Boolean anonym) {
     EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
     try {
         em.getTransaction().begin();
         UserFeedback userFeedback = new UserFeedback();
-        //userFeedback.setEmployeeIdlogin(FeedbackDAO.getEmployeeByID(FeedbackDAO.getEmployeeIdByUsername(recipient)));
+        userFeedback.setEmployeeIdlogin(FeedbackDAO.getEmployeeByID(recipient));
         userFeedback.setIdFrom(from);
         userFeedback.setWorkPerformance(performance);
         userFeedback.setKnowledge(knowledge);
