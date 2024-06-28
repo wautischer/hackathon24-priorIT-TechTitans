@@ -65,6 +65,18 @@ public class FeedbackDAO {
         }
     }
 
+    public static Login getLoginByID(Integer id) {
+        EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+        TypedQuery<Login> query = em.createQuery("select u from Login u where u.id = ?1", Login.class);
+        try {
+            return query.setParameter(1, id).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
     /*
     String recipient = request.getParameter("recipient");
         String performance = request.getParameter("performance");
