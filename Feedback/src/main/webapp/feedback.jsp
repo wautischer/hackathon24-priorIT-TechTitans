@@ -169,7 +169,7 @@
     <form action="feedback" method="get">
         <label>
             <select class="select-field" name="recipient">
-                <option value="">Wählen Sie einen Empfänger</option>
+                <option value="">Waehlen Sie einen Empfaenger</option>
                 <% for (Employee employee : FeedbackDAO.getAllEmployee()) { %>
                 <option value="<%= employee.getId() %>">
                     <%= employee.getFirstname() + " " + employee.getSurname() %>
