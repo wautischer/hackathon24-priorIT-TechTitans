@@ -1,3 +1,5 @@
+<%@ page import="at.techtitans.hackathon.entities.Employee" %>
+<%@ page import="at.techtitans.hackathon.persistence.FeedbackDAO" %>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -160,11 +162,16 @@
         <p>Email: max@beispiel.com</p>
     </div>
     <form action="feedback" method="get">
-        <select class="select-field" name="recipient">
-            <option value="">Wählen Sie einen Empfänger</option>
-            <option value="user1">Benutzer 1</option>
-            <option value="user2">Benutzer 2</option>
-        </select>
+        <label>
+            <select class="select-field" name="recipient">
+                 <option value="">Wählen Sie einen Empfänger</option>
+                 <% for(Employee employee : FeedbackDAO.getAllEmployee()) { %>
+                     <option value="<%= employee.getId() %>">
+                         <%= employee.getFirstname() + " " + employee.getSurname() %>
+                     </option>
+                 <% } %>
+            </select>
+        </label>
         <div class="feedback-field">
             <label>Work Performance:</label>
             <div class="stars">
