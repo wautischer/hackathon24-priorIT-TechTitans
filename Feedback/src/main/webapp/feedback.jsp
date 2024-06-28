@@ -66,6 +66,7 @@
         .stars {
             display: flex;
             justify-content: center;
+            direction: rtl; /* Textausrichtung von rechts nach links */
         }
         .stars input[type="radio"] {
             display: none;
@@ -79,8 +80,8 @@
         .stars input[type="radio"]:checked ~ label {
             color: #cc0033; /* Farbe Rot für ausgewählte Sterne */
         }
-        .stars label:hover,
-        .stars label:hover ~ label {
+        .stars input[type="radio"]:hover ~ label,
+        .stars input[type="radio"]:hover ~ label ~ label {
             color: #cc0033; /* Farbe Rot bei Hover */
         }
         .submit-btn {
