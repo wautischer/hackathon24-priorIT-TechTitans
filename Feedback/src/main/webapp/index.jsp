@@ -2,6 +2,7 @@
 <%@ page import="at.techtitans.hackathon.entities.UserFeedback" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="at.techtitans.hackathon.entities.Employee" %>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -19,7 +20,6 @@
             background-color: #3c3c3b;
             color: white;
         }
-
         /* Stile für das Overlay */
         .overlay {
             display: none;
@@ -85,10 +85,20 @@
         <div id="navbar"></div>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Hallo User</h1>
+                <h1 class="h2">
+                    <%
+                        session = request.getSession();
+                        Employee loggedInEmployee = (Employee) session.getAttribute("loggedInUser");
+                        if (loggedInEmployee != null) {
+                            out.println("Hallo, " + loggedInEmployee.getFirstname() + " " + loggedInEmployee.getSurname());
+                        } else {
+                            out.println("Hallo, User");
+                        }
+                    %>
+                </h1>
+
                 <div>
-                    <img id="profileIcon" src="https://via.placeholder.com/40" alt="Profile Icon"
-                         style="cursor:pointer;">
+                    <img id="profileIcon" src="https://via.placeholder.com/40" alt="Profile Icon" style="cursor:pointer;">
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -104,12 +114,30 @@
 <div id="overlay" class="overlay">
     <div class="popup">
         <h4>Benutzerdetails</h4>
-        <p><strong>Benutzername:</strong> Maill</p>
-        <p><strong>E-Mail:</strong> mail@beispiel.de</p>
-        <p><strong>Adresse:</strong> test 123, 12345 test</p>
+        <%
+            if (loggedInEmployee == null) {
+        %>
+        <p><strong>Bitte anmelden</strong></p>
+        <%
+        } else {
+        %>
+        <p><strong>Benutzername:</strong> <%= loggedInEmployee.getFirstname() + "_" + loggedInEmployee.getSurname() %></p>
+        <p><strong>Telefonnummer:</strong> <%= loggedInEmployee.getPhoneNumber() %></p>
+        <p><strong>Adresse:</strong> <%= loggedInEmployee.getStreetAdress() %></p>
+        <%
+            }
+        %>
+
         <div style="display: flex; justify-content: space-around;">
             <button id="closePopupButton" class="btn btn-secondary btn-logout">close</button>
-            <button id="logout" class="btn btn-secondary btn-logout">logout</button>
+            <button onclick="function handleClick() {
+                <%
+                session = request.getSession();
+                session.setAttribute("loggedInUser", null);
+                %>
+                    sessionStorage.clear();
+            }
+            handleClick()" id="logout" class="btn btn-secondary btn-logout"><% if (loggedInEmployee == null) {out.println("login");}else {out.println("logout");}%></button>
         </div>
     </div>
 </div>
@@ -120,12 +148,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function(){
         $("#navbar").load("navbar.jsp");
     });
 
     // Klick-Ereignis für den Logout-Button
-    document.getElementById('logout').addEventListener('click', function (event) {
+    document.getElementById('logout').addEventListener('click', function(event) {
         event.preventDefault(); // Verhindert das Navigieren zur href-URL
         window.location.href = "login.jsp"; // Weiterleitung zur Login-Seite
     });
@@ -204,8 +232,9 @@
     });
 
 
+
     // Öffnen des Popups beim Klick auf das Profil-Icon
-    document.getElementById('profileIcon').addEventListener('click', function () {
+    document.getElementById('profileIcon').addEventListener('click', function() {
         let overlay = document.getElementById('overlay');
         overlay.classList.remove('hide');
         overlay.classList.add('show');
@@ -213,11 +242,11 @@
     });
 
     // Schließen des Popups beim Klick auf den Schließen-Button
-    document.getElementById('closePopupButton').addEventListener('click', function () {
+    document.getElementById('closePopupButton').addEventListener('click', function() {
         var overlay = document.getElementById('overlay');
         overlay.classList.remove('show');
         overlay.classList.add('hide');
-        setTimeout(function () {
+        setTimeout(function() {
             overlay.style.display = 'none';
         }, 300); // Warte bis die Animation abgeschlossen ist
     });
