@@ -158,8 +158,13 @@
         </div>
     </div>
     <div class="user-info" id="user-info">
-        <p>Name: Max Mustermann</p>
-        <p>Email: max@beispiel.com</p>
+        <p><strong>Name: </strong><% session = request.getSession();
+            Employee loggedInEmployee = (Employee) session.getAttribute("loggedInUser");
+            if (loggedInEmployee != null) {
+                out.println(loggedInEmployee.getFirstname() + " " + loggedInEmployee.getSurname());
+            } else {
+                out.println("Bitte anmelden!");
+            }%></p>
     </div>
     <form action="feedback" method="get">
         <label>
@@ -273,10 +278,7 @@
             <label for="anonymous">Anonym absenden</label>
         </div>
         <div>
-            <label for="fromID">From (Employee ID):</label>
             <input type="hidden" id="fromID" name="fromID" value="<%
-                session = request.getSession();
-                Employee loggedInEmployee = (Employee) session.getAttribute("loggedInUser");
                 if (loggedInEmployee != null) {
                     out.println(loggedInEmployee.getId());
                 } else {
