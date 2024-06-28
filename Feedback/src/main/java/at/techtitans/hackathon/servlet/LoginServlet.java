@@ -19,11 +19,23 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("pword");
 
         if (FeedbackDAO.checkPassword(password, username)){
-            Employee em = FeedbackDAO.getEmployeeByID(FeedbackDAO.getEmployeeIdByUsername(username));
-            HttpSession session = request.getSession();
-            session.setAttribute("loggedInUser", em);
-            response.sendRedirect(request.getContextPath() + "/login/index.jsp");
+            Integer employeeId = FeedbackDAO.getEmployeeIdByUsername(username);
+            if (employeeId != null) {
+                Employee em = FeedbackDAO.getEmployeeByID(employeeId);
+                if (em != null) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("loggedInUser", em);
+                    response.sendRedirect(request.getContextPath() + "/login/index.jsp");
+                } else {
+                    System.err.println("Employee record not found for ID: " + employeeId);
+                    response.sendRedirect(request.getContextPath() + "/login/failed.jsp");
+                }
+            } else {
+                System.err.println("Invalid username " + username);
+                response.sendRedirect(request.getContextPath() + "/login/failed.jsp");
+            }
         } else {
+            System.err.println("Invalid password " + password);
             response.sendRedirect(request.getContextPath() + "/login/failed.jsp");
         }
     }

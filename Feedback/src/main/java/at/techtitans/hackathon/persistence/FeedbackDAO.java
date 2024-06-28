@@ -32,13 +32,25 @@ public class FeedbackDAO {
     public static Integer getEmployeeIdByUsername(String username) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
         TypedQuery<Login> query = em.createQuery("select u from Login u where u.username = ?1", Login.class);
-        return query.setParameter(1, username).getSingleResult().getId();
+        try {
+            return query.setParameter(1, username).getSingleResult().getId();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
     }
 
     public static Employee getEmployeeByID(Integer id) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
         TypedQuery<Employee> query = em.createQuery("select u from Employee u where u.id = ?1", Employee.class);
-        return query.setParameter(1, id).getSingleResult();
+        try {
+            return query.setParameter(1, id).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
     }
 
     /*
@@ -87,7 +99,7 @@ public class FeedbackDAO {
 
     public static List<UserFeedback> getRatingsByEmployeeID(Integer id) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-        TypedQuery<UserFeedback> query = em.createQuery("select f from UserFeedback f where f.employeeIdlogin = ?1", UserFeedback.class);
+        TypedQuery<UserFeedback> query = em.createQuery("select f from UserFeedback f where f.employeeIdlogin.id = ?1", UserFeedback.class);
         return query.setParameter(1, id).getResultList();
     }
 
