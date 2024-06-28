@@ -1,4 +1,4 @@
-package at.techtitans.hackathon;
+package at.techtitans.hackathon.servlet;
 
 import java.io.*;
 
