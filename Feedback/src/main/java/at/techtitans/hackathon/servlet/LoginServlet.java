@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
             Employee em = FeedbackDAO.getEmployeeByID(FeedbackDAO.getEmployeeIdByUsername(username));
             HttpSession session = request.getSession();
             session.setAttribute("loggedInUser", em);
-            response.sendRedirect(request.getContextPath() + "/login/success.jsp");
+            response.sendRedirect(request.getContextPath() + "/login/index.jsp");
         } else {
             response.sendRedirect(request.getContextPath() + "/login/failed.jsp");
         }

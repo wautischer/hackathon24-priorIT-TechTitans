@@ -2,6 +2,8 @@ package at.techtitans.hackathon.servlet;
 
 import java.io.*;
 
+import at.techtitans.hackathon.entities.Employee;
+import at.techtitans.hackathon.persistence.FeedbackDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -22,19 +24,14 @@ public class feedbackServlet extends HttpServlet {
         String leadership = request.getParameter("leadership");
         boolean anonymous = request.getParameter("anonymous") != null;
 
-        // Process the received data (you can save it to a database or perform other actions here)
+        int fromid  = -1;
 
-        // For demonstration, let's print the received data to console
-        System.out.println("Feedback submitted:");
-        System.out.println("Recipient: " + recipient);
-        System.out.println("Performance: " + performance);
-        System.out.println("Knowledge: " + knowledge);
-        System.out.println("Communication: " + communication);
-        System.out.println("Reliability: " + reliability);
-        System.out.println("Teamwork: " + teamwork);
-        System.out.println("Adaptability: " + adaptability);
-        System.out.println("Feedback: " + feedback);
-        System.out.println("Anonymous: " + anonymous);
-        System.out.println("Leadership" + leadership);
+        if(!anonymous){
+            HttpSession session = request.getSession();
+            Employee loggedInEmployee = (Employee) session.getAttribute("loggedInUser");
+            fromid = loggedInEmployee.getId();
+        }
+        
+        FeedbackDAO.setNewUserFeedback(recipient,fromid,Integer.parseInt(performance),Integer.parseInt(knowledge),Integer.parseInt(communication),Integer.parseInt(reliability),Integer.parseInt(teamwork),Integer.parseInt(adaptability),Integer.parseInt(leadership),feedback,anonymous);
     }
 }
