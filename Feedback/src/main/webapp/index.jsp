@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="at.techtitans.hackathon.entities.Employee" %>
+<%@ page import="at.techtitans.hackathon.entities.Login" %>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -112,6 +113,8 @@
     </div>
 </div>
 
+
+
 <!-- Overlay und Popup -->
 <div id="overlay" class="overlay">
     <div class="popup">
@@ -191,6 +194,8 @@
     }
  %>
 
+
+
     let radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
@@ -234,6 +239,7 @@
                 }
             }
         }
+
     });
 
 
@@ -255,5 +261,47 @@
         }, 300); // Warte bis die Animation abgeschlossen ist
     });
 </script>
+<%
+    if (ratings != null && !ratings.isEmpty()) {
+%>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Firstname</th>
+                        <th>Surname</th>
+                        <th>Written Feedback</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for (UserFeedback u : ratings) { %>
+                    <tr>
+                        <%
+                            Employee employee = FeedbackDAO.getEmployeeByID(u.getIdFrom());
+                            String firstname = "";
+                            String surname = "";
+                            if (employee != null) {
+                                firstname = employee.getFirstname();
+                                surname = employee.getSurname();
+                            }
+                        %>
+                        <td><%= u.getId() %></td>
+                        <td><%= firstname %></td>
+                        <td><%= surname %></td>
+                        <td><%= u.getInputField() %></td>
+                    </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<%}%>
+
 </body>
 </html>
