@@ -47,7 +47,7 @@ public class feedbackServlet extends HttpServlet {
                 feedback);
 
         // Redirect to a success page or handle response as needed
-        //response.sendRedirect(request.getContextPath() + "/feedbackSuccess.jsp");
+        response.sendRedirect("index.jsp");
     }
 }
 
