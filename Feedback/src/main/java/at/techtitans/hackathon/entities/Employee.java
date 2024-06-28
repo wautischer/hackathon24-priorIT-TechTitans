@@ -50,9 +50,6 @@ public class Employee {
     @JoinColumn(name = "Login_idLogin", nullable = false)
     private Login loginIdlogin;
 
-    @Column(name = "idLogin", nullable = false)
-    private Integer idLogin;
-
     public Integer getId() {
         return id;
     }
@@ -163,14 +160,6 @@ public class Employee {
 
     public void setLoginIdlogin(Login loginIdlogin) {
         this.loginIdlogin = loginIdlogin;
-    }
-
-    public Integer getIdLogin() {
-        return idLogin;
-    }
-
-    public void setIdLogin(Integer idLogin) {
-        this.idLogin = idLogin;
     }
 
 }

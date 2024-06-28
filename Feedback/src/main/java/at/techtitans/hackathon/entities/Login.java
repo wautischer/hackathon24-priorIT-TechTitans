@@ -21,9 +21,6 @@ public class Login {
     @Column(name = "Password", nullable = false, length = 45)
     private String password;
 
-    @Column(name = "Employee_idLogin", nullable = false)
-    private Integer employeeIdlogin;
-
     public Integer getId() {
         return id;
     }
@@ -54,14 +51,6 @@ public class Login {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Integer getEmployeeIdlogin() {
-        return employeeIdlogin;
-    }
-
-    public void setEmployeeIdlogin(Integer employeeIdlogin) {
-        this.employeeIdlogin = employeeIdlogin;
     }
 
 }

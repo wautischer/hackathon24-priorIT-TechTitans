@@ -18,9 +18,6 @@ public class Project {
     @Column(name = "Description", nullable = false, length = 10000)
     private String description;
 
-    @Column(name = "Employee_idLogin", nullable = false)
-    private Integer employeeIdlogin;
-
     public Integer getId() {
         return id;
     }
@@ -43,14 +40,6 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getEmployeeIdlogin() {
-        return employeeIdlogin;
-    }
-
-    public void setEmployeeIdlogin(Integer employeeIdlogin) {
-        this.employeeIdlogin = employeeIdlogin;
     }
 
 }
