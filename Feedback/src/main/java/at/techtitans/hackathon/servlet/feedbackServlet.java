@@ -19,6 +19,7 @@ public class feedbackServlet extends HttpServlet {
         String teamwork = request.getParameter("teamwork");
         String adaptability = request.getParameter("adability");
         String feedback = request.getParameter("feedback");
+        String leadership = request.getParameter("leadership");
         boolean anonymous = request.getParameter("anonymous") != null;
 
         // Process the received data (you can save it to a database or perform other actions here)
@@ -34,5 +35,6 @@ public class feedbackServlet extends HttpServlet {
         System.out.println("Adaptability: " + adaptability);
         System.out.println("Feedback: " + feedback);
         System.out.println("Anonymous: " + anonymous);
+        System.out.println("Leadership" + leadership);
     }
 }
