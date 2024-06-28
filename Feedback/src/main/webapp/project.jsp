@@ -285,8 +285,8 @@
                     <tr>
                         <%
                             Employee employee = FeedbackDAO.getEmployeeByID(u.getIdFrom());
-                            String firstname = "";
-                            String surname = "";
+                            String firstname = "anonym";
+                            String surname = "anonym";
                             if (employee != null) {
                                 firstname = employee.getFirstname();
                                 surname = employee.getSurname();
