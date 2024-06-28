@@ -2,7 +2,6 @@ package at.techtitans.hackathon.persistence;
 
 import at.techtitans.hackathon.entities.Employee;
 import at.techtitans.hackathon.entities.Login;
-import com.mysql.cj.log.Log;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
