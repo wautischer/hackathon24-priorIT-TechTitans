@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -66,21 +65,23 @@
         }
         .stars {
             display: flex;
+            justify-content: center;
         }
         .stars input[type="radio"] {
             display: none;
         }
         .stars label {
             font-size: 2em;
-            color: gray;
+            color: gray; /* Standardfarbe Grau */
             cursor: pointer;
+            transition: color 0.3s; /* Übergangseffekt für Farbänderung */
         }
         .stars input[type="radio"]:checked ~ label {
-            color: gold;
+            color: #cc0033; /* Farbe Rot für ausgewählte Sterne */
         }
         .stars label:hover,
         .stars label:hover ~ label {
-            color: gold;
+            color: #cc0033; /* Farbe Rot bei Hover */
         }
         .submit-btn {
             width: 100%;
@@ -91,6 +92,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            margin-top: 20px; /* Abstand nach unten */
         }
         .submit-btn:hover {
             background-color: #a30026;
@@ -189,7 +191,7 @@
             <input type="checkbox" id="anonymous" name="anonymous" checked>
             <label for="anonymous">Anonym absenden</label>
         </div>
-        <input type="submit" value="Absenden">
+        <input type="submit" class="submit-btn" value="Absenden">
     </form>
     </div>
 
@@ -205,4 +207,3 @@
     </script>
 </body>
 </html>
-
