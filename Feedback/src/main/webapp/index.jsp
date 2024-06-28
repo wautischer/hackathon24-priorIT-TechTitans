@@ -266,7 +266,9 @@
         }, 300); // Warte bis die Animation abgeschlossen ist
     });
 </script>
-
+<%
+    if (ratings != null && !ratings.isEmpty()) {
+%>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -304,6 +306,7 @@
         </div>
     </div>
 </div>
+<%}%>
 
 </body>
 </html>
