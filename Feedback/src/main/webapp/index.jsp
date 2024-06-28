@@ -57,10 +57,6 @@
     </style>
 </head>
 <body>
-<h1><%= "Hello World!" %></h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
-<a href="login.jsp">Login</a>
 <div class="container-fluid">
     <div class="row">
         <div id="navbar"></div>

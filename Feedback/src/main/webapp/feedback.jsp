@@ -115,7 +115,7 @@
             <p>Email: max@beispiel.com</p>
         </div>
         <h2>Feedback</h2>
-        <form action="feedbackservlet" method="post">
+        <form action="feedback" method="get">
         <select class="select-field" name="recipient">
             <option value="">Wählen Sie einen Empfänger</option>
             <option value="user1">Benutzer 1</option>
