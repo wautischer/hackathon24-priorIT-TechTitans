@@ -15,7 +15,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #333;
+            background-color: #3c3c3b;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -51,7 +51,7 @@
         .login-btn {
             width: 100%;
             padding: 10px;
-            background-color: #cc0033;
+            background-color: #a6233b;
             color: white;
             border: none;
             border-radius: 4px;
@@ -60,12 +60,12 @@
         }
 
         .login-btn:hover {
-            background-color: #a30026;
+            background-color: #a6233b;
         }
 
         .forgot-password {
             margin-top: 15px;
-            color: #cc0033;
+            color: #a6233b;
             text-decoration: none;
             display: block;
         }

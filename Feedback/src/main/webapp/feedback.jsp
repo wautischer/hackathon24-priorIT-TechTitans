@@ -66,6 +66,7 @@
         .stars {
             display: flex;
             justify-content: center;
+            direction: rtl; /* Textausrichtung von rechts nach links */
         }
         .stars input[type="radio"] {
             display: none;
@@ -79,8 +80,8 @@
         .stars input[type="radio"]:checked ~ label {
             color: #cc0033; /* Farbe Rot für ausgewählte Sterne */
         }
-        .stars label:hover,
-        .stars label:hover ~ label {
+        .stars input[type="radio"]:hover ~ label,
+        .stars input[type="radio"]:hover ~ label ~ label {
             color: #cc0033; /* Farbe Rot bei Hover */
         }
         .submit-btn {
@@ -105,6 +106,18 @@
         .checkbox-container input {
             margin-right: 10px;
         }
+
+		.checkbox-container input[type="checkbox"]:checked::before {
+			content: '';
+			position: absolute;
+			top: 2px;
+			left: 2px;
+			width: 12px;
+			height: 12px;
+			background-color: #cc0033;
+			border-radius: 2px;
+		}
+
     </style>
 </head>
 <body>
@@ -183,9 +196,25 @@
                 <input type="radio" id="adability1" name="adability" value="1"><label for="adability1">&#9733;</label>
             </div>
         </div>
+            <%
+                if(1==1){
+            %>
+                    <div class="feedback-field">
+                    <label>Leadership:</label>
+                    <div class="stars">
+                    <input type="radio" id="leadership5" name="leadership" value="5"><label for="leadership5">&#9733;</label>
+                    <input type="radio" id="leadership4" name="leadership" value="4"><label for="leadership4">&#9733;</label>
+                    <input type="radio" id="leadership3" name="leadership" value="3"><label for="leadership3">&#9733;</label>
+                    <input type="radio" id="leadership2" name="leadership" value="2"><label for="leadership2">&#9733;</label>
+                    <input type="radio" id="leadership1" name="leadership" value="1"><label for="leadership1">&#9733;</label>
+                    </div>
+                    </div>
+            <%
+                }
+            %>
         <div class="feedback-field">
             <label for="feedback">Feedback:</label>
-            <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea>
+            <textarea id="feedback" placeholder="Geben Sie Ihr Feedback ein..." name="feedback" rows="4" cols="50"></textarea>
         </div>
         <div class="feedback-field">
             <input type="checkbox" id="anonymous" name="anonymous" checked>
