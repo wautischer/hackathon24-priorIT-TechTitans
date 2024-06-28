@@ -101,8 +101,8 @@
         $("#navbar").load("navbar.jsp");
     });
 
-    var ctx = document.getElementById('radarChart').getContext('2d');
-    var radarChart = new Chart(ctx, {
+    let ctx = document.getElementById('radarChart').getContext('2d');
+    let radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
             labels: ['Punkt 1', 'Punkt 2', 'Punkt 3', 'Punkt 4', 'Punkt 5', 'Punkt 6'],
@@ -112,17 +112,19 @@
                     data: [0, 1, 2, 3, 4, 5],
                     backgroundColor: 'rgba(255, 255, 255, 0.2)',
                     borderColor: 'rgba(255, 255, 255, 1)',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    pointBackgroundColor: 'rgba(255, 255, 255, 1)',
+                    pointBorderColor: 'rgba(255, 255, 255, 1)'
                 }
             ]
         },
         options: {
             scale: {
                 angleLines: {
-                    color: 'rgba(255, 255, 255, 0.5)'
+                    color: 'rgba(255, 255, 255, 1)' // Farbe der Winkel-Linien
                 },
                 gridLines: {
-                    color: 'rgba(255, 255, 255, 0.2)',
+                    color: 'rgba(255, 255, 255, 1)', // Farbe der Rasterlinien
                     circular: true
                 },
                 ticks: {
@@ -130,16 +132,24 @@
                     min: 0,
                     max: 5,
                     stepSize: 1,
-                    backdropColor: 'rgba(0, 0, 0, 0)'
+                    backdropColor: 'rgba(0, 0, 0, 0)',
+                    color: 'rgba(255, 255, 255, 1)' // Farbe der Nummerierungen
+                },
+                pointLabels: {
+                    fontColor: 'rgba(255, 255, 255, 1)' // Farbe der Beschriftungen
+                }
+            },
+            legend: {
+                labels: {
+                    fontColor: 'rgba(255, 255, 255, 1)' // Farbe der Legenden-Beschriftungen
                 }
             }
         }
     });
 
-
     // Öffnen des Popups beim Klick auf das Profil-Icon
     document.getElementById('profileIcon').addEventListener('click', function() {
-        var overlay = document.getElementById('overlay');
+        let overlay = document.getElementById('overlay');
         overlay.classList.remove('hide');
         overlay.classList.add('show');
         overlay.style.display = 'flex';
